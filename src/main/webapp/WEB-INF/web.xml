@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <!-- 
+클래스 경로에서 스프링 구성 파일을로드하십시오. 클래스 경로 키워드는 특히 클래스 경로에서의 로드를 참조합니다. -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:book-context.xml</param-value>
+    </context-param>
+    <!--.
+스프링 컨테이너 시작을 담당하는 리스너. 1의 컨텍스트 매개 변수를 참조하여 스프링 구성 파일의 주소를 가져옵니다. -->
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+    <!-- 스프링 MVC의 마스터 서블릿 -->
+    <servlet>
+        <servlet-name>book</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!--스프링 MVC의 마스터 서블릿의 매핑 URL -->
+    <servlet-mapping>
+        <servlet-name>book</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>rest</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>rest</servlet-name>
+        <url-pattern>/api/</url-pattern>
+    </servlet-mapping>
+
+            <security-constraint>
+        <display-name>JSP Protection</display-name>
+        <web-resource-collection>
+            <web-resource-name>SecureJSPPages</web-resource-name>
+            <url-pattern>*.jsp</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>nobody</role-name>
+        </auth-constraint>
+        </security-constraint>
+        <security-role>
+        <description>
+        Nobody should be in this role so JSP files are protected
+        from direct access.
+        </description>
+        <role-name>nobody</role-name>
+        </security-role>
+</web-app>
