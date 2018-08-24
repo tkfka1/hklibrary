@@ -15,7 +15,7 @@ import java.util.Date;
 public class ReaderCardDao {
 
     private JdbcTemplate jdbcTemplate;
-    //根据用户查询的SQL语句
+    //사용자 쿼리의 SQL 문에 따르면
     private final static String MATCH_COUNT_SQL="select count(*) from reader_card where reader_id = ? and passwd = ? ";
     private final static String FIND_READER_BY_USERID="select reader_id, name, passwd, card_state from reader_card where reader_id = ? ";
     private final static String RE_PASSWORD_SQL="UPDATE reader_card set passwd = ? where reader_id = ? ";
@@ -35,7 +35,7 @@ public class ReaderCardDao {
     public ReaderCard findReaderByReaderId(int userId){
         final ReaderCard readerCard=new ReaderCard();
         jdbcTemplate.query(FIND_READER_BY_USERID, new Object[]{userId},
-                //匿名类实现的回调函数
+                //익명 클래스에 의해 구현 된 콜백 함수
                 new RowCallbackHandler() {
                     public void processRow(ResultSet resultSet) throws SQLException {
                         readerCard.setReaderId(resultSet.getInt("reader_id"));
